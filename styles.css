@@ -1,0 +1,40 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+}
+
+.logo {
+    max-height: 100px;
+}
+
+.document-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%; /* Adjust based on header size */
+    padding: 20px;
+    background-color: #f3f3f3; /* Light grey background */
+    overflow-y: auto; /* Allows scrolling */
+}
+
+#documentContent {
+    font-size: 24px; /* Large enough for easy reading */
+    white-space: pre-wrap; /* Maintains whitespace formatting from the document */
+    max-width: 100%;
+}
+
+.text-content {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    font-size: 18px; /* Larger font for easy reading */
+    line-height: 1.6; /* Increase line-height for better readability */
+}
+
