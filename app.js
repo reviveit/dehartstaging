@@ -9,17 +9,21 @@ const app = express();
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-const credential = new ClientSecretCredential(
-  process.env.TENANT_ID,
-  process.env.CLIENT_ID,
-  process.env.CLIENT_SECRET
-);
+async function testAuthentication() {
+  try {
+    const credential = new ClientSecretCredential(
+      process.env.TENANT_ID,
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET
+    );
 
-const client = Client.initWithMiddleware({
-  authProvider: {
-    getAccessToken: async () => (await credential.getToken()).token
+    console.log('Obtaining access token');
+    const tokenResponse = await credential.getToken(['https://graph.microsoft.com/.default']);
+    console.log('Access token obtained:', tokenResponse.token);
+  } catch (error) {
+    console.error('Error obtaining access token:', error);
   }
-});
+}
 
 async function getDocumentContent(sharingUrl) {
   try {
@@ -129,6 +133,9 @@ app.get('/display1', async (req, res) => {
 });
 
 // ... Repeat for displays 2-6 ...
+
+// Call the test function
+testAuthentication();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
