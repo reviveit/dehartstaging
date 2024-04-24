@@ -45,9 +45,8 @@ async function getDocumentContent(sharingUrl) {
 
   try {
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
-    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).getStream();
-    const content = await contentResponse.text();
-    return content;
+    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get(null, { responseType: 'text' });
+    return contentResponse;
   } catch (error) {
     console.error('Error retrieving document:', error);
     throw error;
