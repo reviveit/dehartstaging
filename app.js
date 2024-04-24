@@ -37,7 +37,7 @@ async function getDocumentContent(sharingUrl) {
   const client = Client.initWithMiddleware({
     authProvider: {
       getAccessToken: async () => {
-        return (await credential.getToken(['Files.Read.All'])).token;
+        return (await credential.getToken(['https://graph.microsoft.com/.default'])).token;
       }
     }
   });
