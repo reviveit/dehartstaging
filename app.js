@@ -24,6 +24,10 @@ const client = Client.initWithMiddleware({
 async function getDocumentContent(sharingUrl) {
   try {
     console.log('Inside getDocumentContent function');
+    console.log('Tenant ID:', process.env.TENANT_ID);
+    console.log('Client ID:', process.env.CLIENT_ID);
+    console.log('Client Secret:', process.env.CLIENT_SECRET);
+    console.log('Credential:', credential);
     const encodedUrl = encodeURIComponent(sharingUrl);
     console.log('Encoded URL:', encodedUrl);
 
