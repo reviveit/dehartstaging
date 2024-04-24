@@ -70,7 +70,11 @@ async function getFormattedContent(sharingUrl) {
     return html;
   } catch (error) {
     console.error('Failed to retrieve or format content:', error);
-    return '<p>Sorry, the content could not be retrieved at the moment. Please try again later.</p>';
+    if (error.message.includes('Corrupted zip')) {
+      return '<p>Sorry, the document appears to be corrupted. Please try again with a different document.</p>';
+    } else {
+      return '<p>Sorry, an error occurred while retrieving the document content. Please try again later.</p>';
+    }
   }
 }
 
