@@ -37,19 +37,15 @@ async function getDocumentContent(sharingUrl) {
   const client = Client.initWithMiddleware({
     authProvider: {
       getAccessToken: async () => {
-        return (await credential.getToken(['https://graph.microsoft.com/.default'])).token;
+        return (await credential.getToken(['Files.Read.All'])).token;
       }
     }
   });
+
   try {
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
-    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).responseType('stream').get();
-    return new Promise((resolve, reject) => {
-      let data = '';
-      contentResponse.on('data', (chunk) => { data += chunk; });
-      contentResponse.on('end', () => { resolve(data.toString()); });
-      contentResponse.on('error', reject);
-    });
+    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
+    return contentResponse;
   } catch (error) {
     console.error('Error retrieving document:', error);
     throw error;
@@ -59,7 +55,12 @@ async function getDocumentContent(sharingUrl) {
 async function getFormattedContent(sharingUrl) {
   try {
     const content = await getDocumentContent(sharingUrl);
-    return formatContent(content);
+    if (typeof content === 'string') {
+      return formatContent(content);
+    } else {
+      console.error('Content is not in string format:', content);
+      return '<p>Content format error or not available.</p>';
+    }
   } catch (error) {
     console.error('Failed to retrieve or format content:', error);
     throw error;
