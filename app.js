@@ -23,6 +23,7 @@ const client = Client.initWithMiddleware({
 
 async function getDocumentContent(sharingUrl) {
   try {
+    console.log('Inside getDocumentContent function');
     const encodedUrl = encodeURIComponent(sharingUrl);
     console.log('Encoded URL:', encodedUrl);
 
@@ -52,7 +53,7 @@ function formatContent(content) {
 }
 
 async function getFormattedContent(sharingUrl) {
-  console.log('Sharing URL:', sharingUrl);
+  console.log('Inside getFormattedContent function');
   const content = await getDocumentContent(sharingUrl);
   console.log('Retrieved content:', content);
   if (content) {
@@ -68,6 +69,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/display1', async (req, res) => {
+  console.log('Inside /display1 route handler');
   try {
     const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=qBLtp7';
     const formattedContent = await getFormattedContent(sharingUrl);
