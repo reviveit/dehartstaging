@@ -36,6 +36,7 @@ async function getDocumentContent(sharingUrl) {
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET
   );
+
   try {
     const tokenResponse = await credential.getToken('https://graph.microsoft.com/.default');
     const accessToken = tokenResponse.token;
@@ -45,18 +46,22 @@ async function getDocumentContent(sharingUrl) {
       },
     });
     const itemData = itemResponse.data;
-    const contentResponse = await axios.get(`https://graph.microsoft.com/v1.0/drives/${itemData.parentReference.driveId}/items/${itemData.id}/content`, {
+
+    const contentResponse = await axios({
+      url: `https://graph.microsoft.com/v1.0/drives/${itemData.parentReference.driveId}/items/${itemData.id}/content`,
+      method: 'GET',
+      responseType: 'arraybuffer',  // Ensure you get the data as a buffer
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    const content = contentResponse.data;
-    return content;
+    return Buffer.from(contentResponse.data);  // Convert the response to a buffer
   } catch (error) {
     console.error('Error retrieving document:', error);
     throw error;
   }
 }
+
 
 async function convertToHtml(content) {
   const result = await mammoth.convertToHtml({ buffer: content });
