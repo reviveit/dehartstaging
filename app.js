@@ -21,10 +21,18 @@ const client = Client.initWithMiddleware({
   }
 });
 
-async function getDocumentContent(driveId, itemId) {
+async function getDocumentContent(sharingUrl) {
   try {
-    const response = await client.api(`/drives/${driveId}/items/${itemId}/content`).get();
-    return response;
+    // Encode the sharing URL
+    const encodedUrl = encodeURIComponent(sharingUrl);
+
+    // Get the shared item's metadata
+    const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
+
+    // Get the shared item's content
+    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
+
+    return contentResponse;
   } catch (error) {
     console.error('Error retrieving document:', error);
     return null;
@@ -45,7 +53,8 @@ async function getFormattedContent(driveId, itemId) {
 }
 
 app.get('/display1', async (req, res) => {
-  const formattedContent = await getFormattedContent('drive_id_1', 'item_id_1');
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/sites/Team/Shared%20Documents/Staging/Staging%201.docx';
+  const formattedContent = await getFormattedContent(sharingUrl);
   res.send(`
     <html>
       <head>
