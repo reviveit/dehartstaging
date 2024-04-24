@@ -53,7 +53,7 @@ async function getFormattedContent(driveId, itemId) {
 }
 
 app.get('/display1', async (req, res) => {
-  const sharingUrl = 'https://dehartmhk.sharepoint.com/sites/Team/Shared%20Documents/Staging/Staging%201.docx';
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBfeIPXJ8_zc9HjheAXDfjug?e=8Oa9rN';
   const formattedContent = await getFormattedContent(sharingUrl);
   res.send(`
     <html>
