@@ -49,7 +49,6 @@ async function getFormattedContent(sharingUrl) {
   console.log('Sharing URL:', sharingUrl);
   const content = await getDocumentContent(sharingUrl);
   console.log('Retrieved content:', content);
-  
   if (content) {
     return formatContent(content);
   } else {
