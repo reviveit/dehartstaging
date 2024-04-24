@@ -23,18 +23,19 @@ const client = Client.initWithMiddleware({
 
 async function getDocumentContent(sharingUrl) {
   try {
-    // Encode the sharing URL
     const encodedUrl = encodeURIComponent(sharingUrl);
-
-    // Get the shared item's metadata
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
-
-    // Get the shared item's content
     const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
-
     return contentResponse;
   } catch (error) {
     console.error('Error retrieving document:', error);
+    if (error.statusCode === 401) {
+      console.error('Unauthorized. Check your Azure AD application permissions.');
+    } else if (error.statusCode === 404) {
+      console.error('Document not found. Check the sharing URL.');
+    } else {
+      console.error('Unexpected error:', error.statusCode, error.message);
+    }
     return null;
   }
 }
