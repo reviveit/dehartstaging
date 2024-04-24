@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const fetch = require('node-fetch');
 const { ClientSecretCredential } = require('@azure/identity');
 const { Client } = require('@microsoft/microsoft-graph-client');
 require('dotenv').config();
@@ -29,6 +28,7 @@ async function testAuthentication() {
 }
 
 async function getDocumentContent(sharingUrl) {
+  const fetch = require('node-fetch');
   const encodedUrl = convertToGraphApiSharingUrl(sharingUrl);
   const credential = new ClientSecretCredential(
     process.env.TENANT_ID,
