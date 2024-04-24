@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
+const mammoth = require('mammoth');
 const { ClientSecretCredential } = require('@azure/identity');
 const { Client } = require('@microsoft/microsoft-graph-client');
 require('dotenv').config();
@@ -61,11 +62,16 @@ async function getDocumentContent(sharingUrl) {
     throw error;
   }
 }
+async function extractText(content) {
+  const result = await mammoth.extractRawText({ buffer: content });
+  return result.value;
+}
 
 async function getFormattedContent(sharingUrl) {
   try {
     const content = await getDocumentContent(sharingUrl);
-    return formatContent(content);
+    const extractedText = await extractText(content);
+    return formatContent(extractedText);
   } catch (error) {
     console.error('Failed to retrieve or format content:', error);
     throw error;
