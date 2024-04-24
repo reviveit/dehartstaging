@@ -50,12 +50,12 @@ async function getDocumentContent(sharingUrl) {
     const contentResponse = await axios({
       url: `https://graph.microsoft.com/v1.0/drives/${itemData.parentReference.driveId}/items/${itemData.id}/content`,
       method: 'GET',
-      responseType: 'arraybuffer',  // Ensure you get the data as a buffer
+      responseType: 'arraybuffer',  
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return Buffer.from(contentResponse.data);  // Convert the response to a buffer
+    return Buffer.from(contentResponse.data);  
   } catch (error) {
     console.error('Error retrieving document:', error);
     throw error;
