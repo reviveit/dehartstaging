@@ -107,7 +107,7 @@ app.get('/', (req, res) => {
 app.get('/display1', async (req, res) => {
   console.log('Inside /display1 route handler');
   try {
-    const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=qBLtp7';
+    const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=zKCS8A';
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
       <html>
