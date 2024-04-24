@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 
 app.get('/display1', async (req, res) => {
   try {
-    const sharingUrl = 'https://dehartmhk.sharepoint.com/sites/Team/Shared%20Documents/Staging/Staging%201.docx';
+    const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=qBLtp7';
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
       <html>
