@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const axios = require('axios');
 const { ClientSecretCredential } = require('@azure/identity');
 const { Client } = require('@microsoft/microsoft-graph-client');
 require('dotenv').config();
@@ -28,7 +29,6 @@ async function testAuthentication() {
 }
 
 async function getDocumentContent(sharingUrl) {
-  const fetch = require('node-fetch');
   const encodedUrl = convertToGraphApiSharingUrl(sharingUrl);
   const credential = new ClientSecretCredential(
     process.env.TENANT_ID,
@@ -40,21 +40,21 @@ async function getDocumentContent(sharingUrl) {
     const tokenResponse = await credential.getToken('https://graph.microsoft.com/.default');
     const accessToken = tokenResponse.token;
 
-    const itemResponse = await fetch(`https://graph.microsoft.com/v1.0/shares/${encodedUrl}/driveItem`, {
+    const itemResponse = await axios.get(`https://graph.microsoft.com/v1.0/shares/${encodedUrl}/driveItem`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    const itemData = await itemResponse.json();
+    const itemData = itemResponse.data;
 
-    const contentResponse = await fetch(`https://graph.microsoft.com/v1.0/drives/${itemData.parentReference.driveId}/items/${itemData.id}/content`, {
+    const contentResponse = await axios.get(`https://graph.microsoft.com/v1.0/drives/${itemData.parentReference.driveId}/items/${itemData.id}/content`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    const content = await contentResponse.text();
+    const content = contentResponse.data;
     return content;
   } catch (error) {
     console.error('Error retrieving document:', error);
