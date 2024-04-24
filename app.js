@@ -45,13 +45,17 @@ function formatContent(content) {
   return `<p>${formattedContent}</p>`;
 }
 
-async function getFormattedContent(driveId, itemId) {
-  const content = await getDocumentContent(driveId, itemId);
+async function getFormattedContent(sharingUrl) {
+  const content = await getDocumentContent(sharingUrl);
   if (content) {
     return formatContent(content);
   }
   return '<p>Document content not available.</p>';
 }
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 app.get('/display1', async (req, res) => {
   try {
@@ -64,6 +68,7 @@ app.get('/display1', async (req, res) => {
         </head>
         <body>
           <div id="content">${formattedContent}</div>
+          <button onclick="location.href='/'">Back to Selection</button>
         </body>
       </html>
     `);
@@ -82,7 +87,7 @@ app.get('/display1', async (req, res) => {
   }
 });
 
-// ... Repeat for displays 2-8 ...
+// ... Repeat for displays 2-6 ...
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
