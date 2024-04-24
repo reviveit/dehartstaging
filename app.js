@@ -28,7 +28,29 @@ async function getDocumentContent(sharingUrl) {
     console.log('Tenant ID:', process.env.TENANT_ID);
     console.log('Client ID:', process.env.CLIENT_ID);
     console.log('Client Secret:', process.env.CLIENT_SECRET);
+
+    console.log('Creating ClientSecretCredential');
+    const credential = new ClientSecretCredential(
+      process.env.TENANT_ID,
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET
+    );
+    console.log('ClientSecretCredential created');
     console.log('Credential:', credential);
+
+    console.log('Creating Microsoft Graph client');
+    const client = Client.initWithMiddleware({
+      authProvider: {
+        getAccessToken: async () => {
+          console.log('Obtaining access token');
+          const tokenResponse = await credential.getToken();
+          console.log('Access token obtained');
+          return tokenResponse.token;
+        }
+      }
+    });
+    console.log('Microsoft Graph client created');
+
     const encodedUrl = encodeURIComponent(sharingUrl);
     console.log('Encoded URL:', encodedUrl);
 
