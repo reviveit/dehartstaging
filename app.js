@@ -14,6 +14,7 @@ function convertToGraphApiSharingUrl(sharingUrl) {
   return `u!${base64Url.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')}`;
 }
 
+// Function to test the authentication setup
 async function testAuthentication() {
   const credential = new ClientSecretCredential(
     process.env.TENANT_ID,
@@ -30,6 +31,7 @@ async function testAuthentication() {
   }
 }
 
+// Function to retrieve document content from a sharing URL
 async function getDocumentContent(sharingUrl) {
   const encodedUrl = convertToGraphApiSharingUrl(sharingUrl);
   console.log('Encoded URL for Graph API:', encodedUrl);
@@ -51,32 +53,29 @@ async function getDocumentContent(sharingUrl) {
 
   try {
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
-    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
-    return contentResponse;
+    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`)
+      .responseType('stream')  // Set responseType to 'stream' for handling binary data
+      .get();
+
+    // Convert the stream to text (assuming it's a text document)
+    return new Promise((resolve, reject) => {
+      let data = '';
+      contentResponse.on('data', (chunk) => { data += chunk; });
+      contentResponse.on('end', () => { resolve(data.toString()); });
+      contentResponse.on('error', reject);
+    });
   } catch (error) {
     console.error('Error retrieving document:', error);
     throw error;
   }
 }
 
-async function getFormattedContent(sharingUrl) {
-  try {
-    const content = await getDocumentContent(sharingUrl);
-    return formatContent(content);
-  } catch (error) {
-    console.error('Failed to retrieve or format content:', error);
-    return '<p>Document content not available.</p>';
-  }
-}
-
+// Function to format the retrieved content (assumes content is text)
 function formatContent(content) {
   return `<p>${content.replace(/\n/g, '<br>')}</p>`;
 }
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
+// Route to display formatted content from a specific URL
 app.get('/display1', async (req, res) => {
   const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=zKCS8A';
   try {
@@ -107,7 +106,7 @@ app.get('/display1', async (req, res) => {
   }
 });
 
-// Initialize testing and server
+// Start the server and run a test of authentication
 testAuthentication();
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
