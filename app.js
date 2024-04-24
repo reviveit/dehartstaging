@@ -1,56 +1,65 @@
-// Import necessary libraries
 const express = require('express');
+const path = require('path');
 const { ClientSecretCredential } = require('@azure/identity');
 const { Client } = require('@microsoft/microsoft-graph-client');
-const mammoth = require('mammoth');
+require('dotenv').config();
 
-
-// Initialize express app
 const app = express();
 
-// Azure AD credentials
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 const credential = new ClientSecretCredential(
   process.env.TENANT_ID,
   process.env.CLIENT_ID,
   process.env.CLIENT_SECRET
 );
 
-// Microsoft Graph client setup
-const client = Client.init({
-  authProvider: (done) => {
-    credential.getToken().then((token) => {
-      done(null, token.token); // Provide the token to Microsoft Graph API
-    }).catch((err) => {
-      done(err, null); // Handle error in getting token
-    });
+const client = Client.initWithMiddleware({
+  authProvider: {
+    getAccessToken: async () => (await credential.getToken()).token
   }
 });
 
-// Endpoint to get text from a Word document
-app.get('/document-text/:docId', async (req, res) => {
-    const docPath = `path_to_your_documents/${req.params.docId}.docx`;
+async function getDocumentContent(driveId, itemId) {
+  try {
+    const response = await client.api(`/drives/${driveId}/items/${itemId}/content`).get();
+    return response;
+  } catch (error) {
+    console.error('Error retrieving document:', error);
+    return null;
+  }
+}
 
-    try {
-        const result = await mammoth.extractRawText({path: docPath});
-        const text = result.value; // The raw text
-        res.send(text);
-    } catch (error) {
-        console.error('Error reading document:', error);
-        res.status(500).send('Failed to extract text');
-    }
+function formatContent(content) {
+  const formattedContent = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+  return `<p>${formattedContent}</p>`;
+}
+
+async function getFormattedContent(driveId, itemId) {
+  const content = await getDocumentContent(driveId, itemId);
+  if (content) {
+    return formatContent(content);
+  }
+  return '<p>Document content not available.</p>';
+}
+
+app.get('/display1', async (req, res) => {
+  const formattedContent = await getFormattedContent('drive_id_1', 'item_id_1');
+  res.send(`
+    <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <div id="content">${formattedContent}</div>
+      </body>
+    </html>
+  `);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('/document-text/document-id-here')
-        .then(response => response.text())
-        .then(text => {
-            document.getElementById('documentContent').textContent = text;
-        })
-        .catch(error => console.error('Error loading the document:', error));
-});
+// ... Repeat for displays 2-8 ...
 
-
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
