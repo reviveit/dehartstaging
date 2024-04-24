@@ -108,6 +108,130 @@ app.get('/display1', async (req, res) => {
   }
 });
 
+app.get('/display2', async (req, res) => {
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/EeAUJ4jWFFdKlWJUodu4Eh4BObOVrhI-ahp37WuWkbw2uw?e=9VVWZ6';
+  try {
+    const formattedContent = await getFormattedContent(sharingUrl);
+    res.send(`
+      <html>
+        <head>
+          <link rel="stylesheet" href="/styles.css">
+        </head>
+        <body>
+          <div class="document-container">
+            <div id="content">${formattedContent}</div>
+          </div>
+          <div class="button-container">
+            <button onclick="location.href='/'">Back to Selection</button>
+          </div>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error('Error in /display2 route:', error);
+    res.status(500).send('Error retrieving document content. Please try again later.');
+  }
+});
+
+app.get('/display3', async (req, res) => {
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/EdKznNWC8-FBgmXlzBOuyTYBAzTail-2aB-MtxKrKFtGog?e=iaCFse';
+  try {
+    const formattedContent = await getFormattedContent(sharingUrl);
+    res.send(`
+      <html>
+        <head>
+          <link rel="stylesheet" href="/styles.css">
+        </head>
+        <body>
+          <div class="document-container">
+            <div id="content">${formattedContent}</div>
+          </div>
+          <div class="button-container">
+            <button onclick="location.href='/'">Back to Selection</button>
+          </div>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error('Error in /display3 route:', error);
+    res.status(500).send('Error retrieving document content. Please try again later.');
+  }
+});
+
+app.get('/display4', async (req, res) => {
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/Ec00txZbL_tPoh5XJ8Qh3gMBKdcSqCH7qaoL7KhtstF0wA?e=kWtmnI';
+  try {
+    const formattedContent = await getFormattedContent(sharingUrl);
+    res.send(`
+      <html>
+        <head>
+          <link rel="stylesheet" href="/styles.css">
+        </head>
+        <body>
+          <div class="document-container">
+            <div id="content">${formattedContent}</div>
+          </div>
+          <div class="button-container">
+            <button onclick="location.href='/'">Back to Selection</button>
+          </div>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error('Error in /display4 route:', error);
+    res.status(500).send('Error retrieving document content. Please try again later.');
+  }
+});
+
+app.get('/display5', async (req, res) => {
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/EYOEVTc6bN1DvM2ifudIc1IB_QZrKgR5CosXNJb9smYycw?e=QSjkW6';
+  try {
+    const formattedContent = await getFormattedContent(sharingUrl);
+    res.send(`
+      <html>
+        <head>
+          <link rel="stylesheet" href="/styles.css">
+        </head>
+        <body>
+          <div class="document-container">
+            <div id="content">${formattedContent}</div>
+          </div>
+          <div class="button-container">
+            <button onclick="location.href='/'">Back to Selection</button>
+          </div>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error('Error in /display5 route:', error);
+    res.status(500).send('Error retrieving document content. Please try again later.');
+  }
+});
+
+app.get('/display6', async (req, res) => {
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/EZ1RmV7OFQdJvlw9_VGwyTQB8KIiQ7tpaIzZZ2iiNGYj7w?e=gePgwq';
+  try {
+    const formattedContent = await getFormattedContent(sharingUrl);
+    res.send(`
+      <html>
+        <head>
+          <link rel="stylesheet" href="/styles.css">
+        </head>
+        <body>
+          <div class="document-container">
+            <div id="content">${formattedContent}</div>
+          </div>
+          <div class="button-container">
+            <button onclick="location.href='/'">Back to Selection</button>
+          </div>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error('Error in /display6 route:', error);
+    res.status(500).send('Error retrieving document content. Please try again later.');
+  }
+});
 
 testAuthentication();
 
