@@ -55,11 +55,7 @@ async function getDocumentContent(sharingUrl) {
     });
     console.log('Microsoft Graph client created');
 
-    const url = new URL(sharingUrl);
-    const pathSegments = url.pathname.split('/').map(encodeURIComponent).filter(Boolean);
-    const encodedPath = pathSegments.join('/');
-    const encodedUrl = `${url.protocol}//${url.host}/${encodedPath}${url.search}`;
-
+    const encodedUrl = encodeURIComponent(sharingUrl);
     console.log('Encoded URL:', encodedUrl);
 
     console.log('Making API call to get item metadata');
