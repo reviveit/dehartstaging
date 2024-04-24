@@ -24,8 +24,14 @@ const client = Client.initWithMiddleware({
 async function getDocumentContent(sharingUrl) {
   try {
     const encodedUrl = encodeURIComponent(sharingUrl);
+    console.log('Encoded URL:', encodedUrl);
+
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
+    console.log('Item Response:', itemResponse);
+
     const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
+    console.log('Content Response:', contentResponse);
+
     return contentResponse;
   } catch (error) {
     console.error('Error retrieving document:', error);
