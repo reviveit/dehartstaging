@@ -14,6 +14,22 @@ function convertToGraphApiSharingUrl(sharingUrl) {
   return `u!${base64Url.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')}`;
 }
 
+async function testAuthentication() {
+  const credential = new ClientSecretCredential(
+    process.env.TENANT_ID,
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET
+  );
+
+  console.log('Testing authentication...');
+  try {
+    const tokenResponse = await credential.getToken(['https://graph.microsoft.com/.default']);
+    console.log('Authentication test successful. Access token obtained:', tokenResponse.token);
+  } catch (error) {
+    console.error('Authentication test failed:', error);
+  }
+}
+
 async function getDocumentContent(sharingUrl) {
   const encodedUrl = convertToGraphApiSharingUrl(sharingUrl);
   console.log('Encoded URL for Graph API:', encodedUrl);
