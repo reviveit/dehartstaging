@@ -46,11 +46,16 @@ function formatContent(content) {
 }
 
 async function getFormattedContent(sharingUrl) {
+  console.log('Sharing URL:', sharingUrl);
   const content = await getDocumentContent(sharingUrl);
+  console.log('Retrieved content:', content);
+  
   if (content) {
     return formatContent(content);
+  } else {
+    console.log('Document content is empty or null');
+    return '<p>Document content not available.</p>';
   }
-  return '<p>Document content not available.</p>';
 }
 
 app.get('/', (req, res) => {
