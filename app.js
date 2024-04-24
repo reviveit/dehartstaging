@@ -24,6 +24,7 @@ const client = Client.initWithMiddleware({
 async function getDocumentContent(sharingUrl) {
   try {
     console.log('Inside getDocumentContent function');
+    console.log('Sharing URL:', sharingUrl);
     console.log('Tenant ID:', process.env.TENANT_ID);
     console.log('Client ID:', process.env.CLIENT_ID);
     console.log('Client Secret:', process.env.CLIENT_SECRET);
@@ -31,9 +32,11 @@ async function getDocumentContent(sharingUrl) {
     const encodedUrl = encodeURIComponent(sharingUrl);
     console.log('Encoded URL:', encodedUrl);
 
+    console.log('Making API call to get item metadata');
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
     console.log('Item Response:', itemResponse);
 
+    console.log('Making API call to get item content');
     const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
     console.log('Content Response:', contentResponse);
 
