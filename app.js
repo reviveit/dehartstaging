@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fetch = require('node-fetch');
 const { ClientSecretCredential } = require('@azure/identity');
 const { Client } = require('@microsoft/microsoft-graph-client');
 require('dotenv').config();
@@ -34,19 +35,27 @@ async function getDocumentContent(sharingUrl) {
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET
   );
-  const client = Client.initWithMiddleware({
-    authProvider: {
-      getAccessToken: async () => {
-        const graphScope = 'https://graph.microsoft.com/.default';
-        return (await credential.getToken(graphScope)).token;
-      }
-    }
-  });
 
   try {
-    const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
-    const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get(null, { responseType: 'text' });
-    return contentResponse;
+    const tokenResponse = await credential.getToken('https://graph.microsoft.com/.default');
+    const accessToken = tokenResponse.token;
+
+    const itemResponse = await fetch(`https://graph.microsoft.com/v1.0/shares/${encodedUrl}/driveItem`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const itemData = await itemResponse.json();
+
+    const contentResponse = await fetch(`https://graph.microsoft.com/v1.0/drives/${itemData.parentReference.driveId}/items/${itemData.id}/content`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const content = await contentResponse.text();
+    return content;
   } catch (error) {
     console.error('Error retrieving document:', error);
     throw error;
