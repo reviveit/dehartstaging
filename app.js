@@ -56,8 +56,9 @@ async function getDocumentContent(sharingUrl) {
     console.log('Microsoft Graph client created');
 
     const url = new URL(sharingUrl);
-    const encodedPath = encodeURIComponent(url.pathname);
-    const encodedUrl = `${url.protocol}//${url.host}${encodedPath}${url.search}`;
+    const pathSegments = url.pathname.split('/').map(encodeURIComponent).filter(Boolean);
+    const encodedPath = pathSegments.join('/');
+    const encodedUrl = `${url.protocol}//${url.host}/${encodedPath}${url.search}`;
 
     console.log('Encoded URL:', encodedUrl);
 
