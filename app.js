@@ -47,7 +47,7 @@ async function getDocumentContent(sharingUrl) {
       authProvider: {
         getAccessToken: async () => {
           console.log('Obtaining access token');
-          const tokenResponse = await credential.getToken('https://graph.microsoft.com/.default');
+          const tokenResponse = await credential.getToken('Files.Read.All');
           console.log('Access token obtained');
           return tokenResponse.token;
         }
@@ -55,7 +55,10 @@ async function getDocumentContent(sharingUrl) {
     });
     console.log('Microsoft Graph client created');
 
-    const encodedUrl = encodeURIComponent(sharingUrl);
+    const url = new URL(sharingUrl);
+    const encodedPath = encodeURIComponent(url.pathname);
+    const encodedUrl = `${url.protocol}//${url.host}${encodedPath}${url.search}`;
+
     console.log('Encoded URL:', encodedUrl);
 
     console.log('Making API call to get item metadata');
