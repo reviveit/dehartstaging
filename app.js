@@ -36,25 +36,20 @@ async function getDocumentContent(sharingUrl) {
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET
   );
-
   try {
     const tokenResponse = await credential.getToken('https://graph.microsoft.com/.default');
     const accessToken = tokenResponse.token;
-
     const itemResponse = await axios.get(`https://graph.microsoft.com/v1.0/shares/${encodedUrl}/driveItem`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-
     const itemData = itemResponse.data;
-
     const contentResponse = await axios.get(`https://graph.microsoft.com/v1.0/drives/${itemData.parentReference.driveId}/items/${itemData.id}/content`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-
     const content = contentResponse.data;
     return content;
   } catch (error) {
@@ -62,28 +57,20 @@ async function getDocumentContent(sharingUrl) {
     throw error;
   }
 }
-async function extractText(content) {
-  const result = await mammoth.extractRawText({ buffer: content });
+
+async function convertToHtml(content) {
+  const result = await mammoth.convertToHtml({ buffer: content });
   return result.value;
 }
 
 async function getFormattedContent(sharingUrl) {
   try {
     const content = await getDocumentContent(sharingUrl);
-    const extractedText = await extractText(content);
-    return formatContent(extractedText);
+    const html = await convertToHtml(content);
+    return html;
   } catch (error) {
     console.error('Failed to retrieve or format content:', error);
-    throw error;
-  }
-}
-
-function formatContent(content) {
-  if (typeof content === 'string') {
-    return `<p>${content.replace(/\n/g, '<br>')}</p>`;
-  } else {
-    console.error('Content is not in string format:', content);
-    return '<p>Content format error or not available.</p>';
+    return '<p>Sorry, the content could not be retrieved at the moment. Please try again later.</p>';
   }
 }
 
