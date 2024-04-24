@@ -1,7 +1,9 @@
 body, html {
     height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9; /* Light grey background for easier reading */
+    color: #333; /* Dark grey text color for contrast */
 }
 
 .header {
@@ -33,19 +35,21 @@ body, html {
     width: 80%;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #ffffff; /* White background for the content area */
     font-size: 18px; /* Larger font for easy reading */
     line-height: 1.6; /* Increase line-height for better readability */
+    border: 1px solid #ccc; /* Light grey border around the content */
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1); /* Subtle shadow for depth */
 }
 
-  .button-container {
+.button-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
-  }
-  
-  button {
+}
+
+button {
     padding: 10px 20px;
     margin: 10px;
     font-size: 16px;
@@ -53,8 +57,9 @@ body, html {
     color: white;
     border: none;
     cursor: pointer;
-  }
-  
-  button:hover {
+    border-radius: 5px; /* Rounded corners */
+}
+
+button:hover {
     background-color: #45a049;
-  }
+}
