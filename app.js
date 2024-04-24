@@ -56,6 +56,25 @@ async function getDocumentContent(sharingUrl) {
   }
 }
 
+async function getFormattedContent(sharingUrl) {
+  try {
+    const content = await getDocumentContent(sharingUrl);
+    return formatContent(content);
+  } catch (error) {
+    console.error('Failed to retrieve or format content:', error);
+    throw error;
+  }
+}
+
+function formatContent(content) {
+  if (typeof content === 'string') {
+    return `<p>${content.replace(/\n/g, '<br>')}</p>`;
+  } else {
+    console.error('Content is not in string format:', content);
+    return '<p>Content format error or not available.</p>';
+  }
+}
+
 app.get('/display1', async (req, res) => {
   const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=zKCS8A';
   try {
