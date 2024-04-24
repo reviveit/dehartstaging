@@ -93,8 +93,12 @@ app.get('/display1', async (req, res) => {
           <link rel="stylesheet" href="/styles.css">
         </head>
         <body>
-          <div id="content">${formattedContent}</div>
-          <button onclick="location.href='/'">Back to Selection</button>
+          <div class="document-container">
+            <div id="content">${formattedContent}</div>
+          </div>
+          <div class="button-container">
+            <button onclick="location.href='/'">Back to Selection</button>
+          </div>
         </body>
       </html>
     `);
@@ -103,6 +107,7 @@ app.get('/display1', async (req, res) => {
     res.status(500).send('Error retrieving document content. Please try again later.');
   }
 });
+
 
 testAuthentication();
 
