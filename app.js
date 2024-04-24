@@ -47,7 +47,7 @@ async function getDocumentContent(sharingUrl) {
       authProvider: {
         getAccessToken: async () => {
           console.log('Obtaining access token');
-          const tokenResponse = await credential.getToken('Files.Read.All');
+          const tokenResponse = await credential.getToken('https://graph.microsoft.com/.default');
           console.log('Access token obtained');
           return tokenResponse.token;
         }
