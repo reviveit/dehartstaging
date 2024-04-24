@@ -46,17 +46,7 @@ async function getDocumentContent(sharingUrl) {
   try {
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
     const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
-
-    return new Promise((resolve, reject) => {
-      let data = '';
-      contentResponse.on('data', (chunk) => {
-        data += chunk;
-      });
-      contentResponse.on('end', () => {
-        resolve(data.toString());
-      });
-      contentResponse.on('error', reject);
-    });
+    return contentResponse;
   } catch (error) {
     console.error('Error retrieving document:', error);
     throw error;
@@ -66,12 +56,7 @@ async function getDocumentContent(sharingUrl) {
 async function getFormattedContent(sharingUrl) {
   try {
     const content = await getDocumentContent(sharingUrl);
-    if (typeof content === 'string') {
-      return formatContent(content);
-    } else {
-      console.error('Content is not in string format:', content);
-      return '<p>Content format error or not available.</p>';
-    }
+    return formatContent(content);
   } catch (error) {
     console.error('Failed to retrieve or format content:', error);
     throw error;
