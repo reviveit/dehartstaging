@@ -5,96 +5,56 @@ const { Client } = require('@microsoft/microsoft-graph-client');
 require('dotenv').config();
 
 const app = express();
-
-// Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-async function testAuthentication() {
-  try {
-    const credential = new ClientSecretCredential(
-      process.env.TENANT_ID,
-      process.env.CLIENT_ID,
-      process.env.CLIENT_SECRET
-    );
-
-    console.log('Obtaining access token');
-    const tokenResponse = await credential.getToken(['https://graph.microsoft.com/.default']);
-    console.log('Access token obtained:', tokenResponse.token);
-  } catch (error) {
-    console.error('Error obtaining access token:', error);
-  }
+// Convert sharing URL to a format suitable for Microsoft Graph API
+function convertToGraphApiSharingUrl(sharingUrl) {
+  const buffer = Buffer.from(sharingUrl, "utf8");
+  const base64Url = buffer.toString('base64');
+  return `u!${base64Url.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')}`;
 }
 
 async function getDocumentContent(sharingUrl) {
-  try {
-    console.log('Inside getDocumentContent function');
-    console.log('Sharing URL:', sharingUrl);
-    console.log('Tenant ID:', process.env.TENANT_ID);
-    console.log('Client ID:', process.env.CLIENT_ID);
-    console.log('Client Secret:', process.env.CLIENT_SECRET);
-
-    console.log('Creating ClientSecretCredential');
-    const credential = new ClientSecretCredential(
-      process.env.TENANT_ID,
-      process.env.CLIENT_ID,
-      process.env.CLIENT_SECRET
-    );
-    console.log('ClientSecretCredential created');
-    console.log('Credential:', credential);
-
-    console.log('Creating Microsoft Graph client');
-    const client = Client.initWithMiddleware({
-      authProvider: {
-        getAccessToken: async () => {
-          console.log('Obtaining access token');
-          const tokenResponse = await credential.getToken('https://graph.microsoft.com/.default');
-          console.log('Access token obtained');
-          return tokenResponse.token;
-        }
+  const encodedUrl = convertToGraphApiSharingUrl(sharingUrl);
+  console.log('Encoded URL for Graph API:', encodedUrl);
+  
+  const credential = new ClientSecretCredential(
+    process.env.TENANT_ID,
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET
+  );
+  
+  const client = Client.initWithMiddleware({
+    authProvider: {
+      getAccessToken: async () => {
+        const tokenResponse = await credential.getToken(['https://graph.microsoft.com/.default']);
+        return tokenResponse.token;
       }
-    });
-    console.log('Microsoft Graph client created');
+    }
+  });
 
-    const encodedUrl = encodeURIComponent(sharingUrl);
-    console.log('Encoded URL:', encodedUrl);
-
-    console.log('Making API call to get item metadata');
+  try {
     const itemResponse = await client.api(`/shares/${encodedUrl}/driveItem`).get();
-    console.log('Item Response:', itemResponse);
-
-    console.log('Making API call to get item content');
     const contentResponse = await client.api(`/drives/${itemResponse.parentReference.driveId}/items/${itemResponse.id}/content`).get();
-    console.log('Content Response:', contentResponse);
-
     return contentResponse;
   } catch (error) {
     console.error('Error retrieving document:', error);
-    if (error.statusCode === 401) {
-      console.error('Unauthorized. Check your Azure AD application permissions.');
-    } else if (error.statusCode === 404) {
-      console.error('Document not found. Check the sharing URL.');
-    } else {
-      console.error('Unexpected error:', error.statusCode, error.message);
-    }
-    return null;
+    throw error;
+  }
+}
+
+async function getFormattedContent(sharingUrl) {
+  try {
+    const content = await getDocumentContent(sharingUrl);
+    return formatContent(content);
+  } catch (error) {
+    console.error('Failed to retrieve or format content:', error);
+    return '<p>Document content not available.</p>';
   }
 }
 
 function formatContent(content) {
-  const formattedContent = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
-  return `<p>${formattedContent}</p>`;
-}
-
-async function getFormattedContent(sharingUrl) {
-  console.log('Inside getFormattedContent function');
-  const content = await getDocumentContent(sharingUrl);
-  console.log('Retrieved content:', content);
-  if (content) {
-    return formatContent(content);
-  } else {
-    console.log('Document content is empty or null');
-    return '<p>Document content not available.</p>';
-  }
+  return `<p>${content.replace(/\n/g, '<br>')}</p>`;
 }
 
 app.get('/', (req, res) => {
@@ -102,9 +62,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/display1', async (req, res) => {
-  console.log('Inside /display1 route handler');
+  const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=zKCS8A';
   try {
-    const sharingUrl = 'https://dehartmhk.sharepoint.com/:w:/s/Team/ER_lRUDzbgZOoWg_uyrpL0oBqdKLKGl_eZNN-3yCPOwKRQ?e=zKCS8A';
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
       <html>
@@ -132,11 +91,8 @@ app.get('/display1', async (req, res) => {
   }
 });
 
-// ... Repeat for displays 2-6 ...
-
-// Call the test function
+// Initialize testing and server
 testAuthentication();
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
