@@ -15,10 +15,14 @@ body, html {
     padding: 20px;
     background-color: #3353A5;
     color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .logo {
     max-height: 100px;
+    margin-bottom: 10px;
 }
 
 .document-container {

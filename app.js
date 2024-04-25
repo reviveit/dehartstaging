@@ -94,6 +94,7 @@ app.get('/display1', async (req, res) => {
       </head>
       <body>
         <div class="header">
+          <img src="/logo.png" alt="Logo" class="logo">
           <h1>Display 1</h1>
         </div>
         <div class="document-container">
