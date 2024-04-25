@@ -30,9 +30,6 @@ body, html {
 }
 
 .document-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
@@ -41,17 +38,13 @@ body, html {
     box-sizing: border-box;
 }
 
-.content-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 #content {
     font-size: 18px;
     line-height: 1.6;
     text-align: center;
     color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 #content p {
