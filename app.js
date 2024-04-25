@@ -131,20 +131,38 @@ app.get('/display2', async (req, res) => {
   try {
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
-      <html>
-        <head>
-          <link rel="stylesheet" href="/styles.css">
-        </head>
-        <body>
+    <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <div class="page-transition">
+          <div class="header">
+            <img src="/logo.png" alt="Logo" class="logo">
+            <h1>Display 1</h1>
+          </div>
           <div class="document-container">
             <div id="content">${formattedContent}</div>
           </div>
           <div class="button-container">
-            <button onclick="location.href='/'">Back to Selection</button>
+            <button onclick="navigateToDisplay('/')">Back to Selection</button>
           </div>
-        </body>
-      </html>
-    `);
+        </div>
+        <div class="loading-spinner"></div>
+        <script>
+          function navigateToDisplay(url) {
+            const pageTransition = document.querySelector('.page-transition');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            pageTransition.classList.add('fade-out');
+            loadingSpinner.style.display = 'block';
+            setTimeout(() => {
+              location.href = url;
+            }, 500);
+          }
+        </script>
+      </body>
+    </html>
+  `);
   } catch (error) {
     console.error('Error in /display2 route:', error);
     res.status(500).send('Error retrieving document content. Please try again later.');
@@ -156,20 +174,38 @@ app.get('/display3', async (req, res) => {
   try {
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
-      <html>
-        <head>
-          <link rel="stylesheet" href="/styles.css">
-        </head>
-        <body>
+    <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <div class="page-transition">
+          <div class="header">
+            <img src="/logo.png" alt="Logo" class="logo">
+            <h1>Display 1</h1>
+          </div>
           <div class="document-container">
             <div id="content">${formattedContent}</div>
           </div>
           <div class="button-container">
-            <button onclick="location.href='/'">Back to Selection</button>
+            <button onclick="navigateToDisplay('/')">Back to Selection</button>
           </div>
-        </body>
-      </html>
-    `);
+        </div>
+        <div class="loading-spinner"></div>
+        <script>
+          function navigateToDisplay(url) {
+            const pageTransition = document.querySelector('.page-transition');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            pageTransition.classList.add('fade-out');
+            loadingSpinner.style.display = 'block';
+            setTimeout(() => {
+              location.href = url;
+            }, 500);
+          }
+        </script>
+      </body>
+    </html>
+  `);
   } catch (error) {
     console.error('Error in /display3 route:', error);
     res.status(500).send('Error retrieving document content. Please try again later.');
@@ -181,20 +217,38 @@ app.get('/display4', async (req, res) => {
   try {
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
-      <html>
-        <head>
-          <link rel="stylesheet" href="/styles.css">
-        </head>
-        <body>
+    <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <div class="page-transition">
+          <div class="header">
+            <img src="/logo.png" alt="Logo" class="logo">
+            <h1>Display 1</h1>
+          </div>
           <div class="document-container">
             <div id="content">${formattedContent}</div>
           </div>
           <div class="button-container">
-            <button onclick="location.href='/'">Back to Selection</button>
+            <button onclick="navigateToDisplay('/')">Back to Selection</button>
           </div>
-        </body>
-      </html>
-    `);
+        </div>
+        <div class="loading-spinner"></div>
+        <script>
+          function navigateToDisplay(url) {
+            const pageTransition = document.querySelector('.page-transition');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            pageTransition.classList.add('fade-out');
+            loadingSpinner.style.display = 'block';
+            setTimeout(() => {
+              location.href = url;
+            }, 500);
+          }
+        </script>
+      </body>
+    </html>
+  `);
   } catch (error) {
     console.error('Error in /display4 route:', error);
     res.status(500).send('Error retrieving document content. Please try again later.');
@@ -206,20 +260,38 @@ app.get('/display5', async (req, res) => {
   try {
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
-      <html>
-        <head>
-          <link rel="stylesheet" href="/styles.css">
-        </head>
-        <body>
+    <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <div class="page-transition">
+          <div class="header">
+            <img src="/logo.png" alt="Logo" class="logo">
+            <h1>Display 1</h1>
+          </div>
           <div class="document-container">
             <div id="content">${formattedContent}</div>
           </div>
           <div class="button-container">
-            <button onclick="location.href='/'">Back to Selection</button>
+            <button onclick="navigateToDisplay('/')">Back to Selection</button>
           </div>
-        </body>
-      </html>
-    `);
+        </div>
+        <div class="loading-spinner"></div>
+        <script>
+          function navigateToDisplay(url) {
+            const pageTransition = document.querySelector('.page-transition');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            pageTransition.classList.add('fade-out');
+            loadingSpinner.style.display = 'block';
+            setTimeout(() => {
+              location.href = url;
+            }, 500);
+          }
+        </script>
+      </body>
+    </html>
+  `);
   } catch (error) {
     console.error('Error in /display5 route:', error);
     res.status(500).send('Error retrieving document content. Please try again later.');
@@ -231,27 +303,43 @@ app.get('/display6', async (req, res) => {
   try {
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
-      <html>
-        <head>
-          <link rel="stylesheet" href="/styles.css">
-        </head>
-        <body>
+    <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <div class="page-transition">
+          <div class="header">
+            <img src="/logo.png" alt="Logo" class="logo">
+            <h1>Display 1</h1>
+          </div>
           <div class="document-container">
             <div id="content">${formattedContent}</div>
           </div>
           <div class="button-container">
-            <button onclick="location.href='/'">Back to Selection</button>
+            <button onclick="navigateToDisplay('/')">Back to Selection</button>
           </div>
-        </body>
-      </html>
-    `);
+        </div>
+        <div class="loading-spinner"></div>
+        <script>
+          function navigateToDisplay(url) {
+            const pageTransition = document.querySelector('.page-transition');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            pageTransition.classList.add('fade-out');
+            loadingSpinner.style.display = 'block';
+            setTimeout(() => {
+              location.href = url;
+            }, 500);
+          }
+        </script>
+      </body>
+    </html>
+  `);
   } catch (error) {
     console.error('Error in /display6 route:', error);
     res.status(500).send('Error retrieving document content. Please try again later.');
   }
 });
-
-testAuthentication();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
