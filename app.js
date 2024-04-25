@@ -100,6 +100,7 @@ app.get('/display1', async (req, res) => {
           </div>
           <div class="document-container">
             <div id="content">${formattedContent}</div>
+            <button id="fullScreenBtn">Full Screen</button>
           </div>
           <div class="button-container">
             <button onclick="navigateToDisplay('/')">Back to Selection</button>
@@ -116,6 +117,19 @@ app.get('/display1', async (req, res) => {
               location.href = url;
             }, 500);
           }
+
+          const fullScreenBtn = document.getElementById('fullScreenBtn');
+          const content = document.getElementById('content');
+
+          fullScreenBtn.addEventListener('click', () => {
+            if (content.requestFullscreen) {
+              content.requestFullscreen();
+            } else if (content.webkitRequestFullscreen) { // Safari
+              content.webkitRequestFullscreen();
+            } else if (content.msRequestFullscreen) { // IE/Edge
+              content.msRequestFullscreen();
+            }
+          });
         </script>
       </body>
     </html>
