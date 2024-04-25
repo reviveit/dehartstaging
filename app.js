@@ -122,13 +122,13 @@ app.get('/display1', async (req, res) => {
           const content = document.getElementById('content');
 
           fullScreenBtn.addEventListener('click', () => {
-            if (content.requestFullscreen) {
-              content.requestFullscreen();
-            } else if (content.webkitRequestFullscreen) { // Safari
-              content.webkitRequestFullscreen();
-            } else if (content.msRequestFullscreen) { // IE/Edge
-              content.msRequestFullscreen();
-            }
+            content.classList.add('full-screen');
+            document.body.style.overflow = 'hidden';
+          });
+
+          content.addEventListener('click', () => {
+            content.classList.remove('full-screen');
+            document.body.style.overflow = 'auto';
           });
         </script>
       </body>
