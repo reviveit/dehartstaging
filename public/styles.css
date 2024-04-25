@@ -65,6 +65,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    position: relative;
 }
 
 button:hover {
@@ -115,6 +116,25 @@ button:hover {
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* Button spinner styles */
+.button-container button {
+    position: relative;
+}
+
+.button-spinner {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-image: url('/spinner.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 @media (max-width: 768px) {
