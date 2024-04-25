@@ -39,9 +39,12 @@ body, html {
     width: 100%;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
-    overflow-y: auto;
-    max-height: calc(100vh - 200px);
     box-sizing: border-box;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #content {
@@ -49,6 +52,8 @@ body, html {
     line-height: 1.6;
     text-align: center;
     color: #333;
+    max-width: 100%;
+    overflow-y: auto;
 }
 
 #content p {
@@ -125,6 +130,11 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+    .document-container {
+        margin-top: 20px;
+        border-radius: 0;
+    }
+
     .loading-spinner {
         width: 100px;
         height: 100px;
