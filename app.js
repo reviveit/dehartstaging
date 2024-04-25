@@ -105,10 +105,13 @@ app.get('/display1', async (req, res) => {
             <button onclick="navigateToDisplay('/')">Back to Selection</button>
           </div>
         </div>
+        <div class="loading-spinner"></div>
         <script>
           function navigateToDisplay(url) {
             const pageTransition = document.querySelector('.page-transition');
+            const loadingSpinner = document.querySelector('.loading-spinner');
             pageTransition.classList.add('fade-out');
+            loadingSpinner.style.display = 'block';
             setTimeout(() => {
               location.href = url;
             }, 500);
