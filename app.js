@@ -88,20 +88,23 @@ app.get('/display1', async (req, res) => {
   try {
     const formattedContent = await getFormattedContent(sharingUrl);
     res.send(`
-      <html>
-        <head>
-          <link rel="stylesheet" href="/styles.css">
-        </head>
-        <body>
-          <div class="document-container">
-            <div id="content">${formattedContent}</div>
-          </div>
-          <div class="button-container">
-            <button onclick="location.href='/'">Back to Selection</button>
-          </div>
-        </body>
-      </html>
-    `);
+    <html>
+      <head>
+        <link rel="stylesheet" href="/styles.css">
+      </head>
+      <body>
+        <div class="header">
+          <h1>Display 1</h1>
+        </div>
+        <div class="document-container">
+          <div id="content">${formattedContent}</div>
+        </div>
+        <div class="button-container">
+          <button onclick="location.href='/'">Back to Selection</button>
+        </div>
+      </body>
+    </html>
+  `);
   } catch (error) {
     console.error('Error in /display1 route:', error);
     res.status(500).send('Error retrieving document content. Please try again later.');

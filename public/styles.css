@@ -2,17 +2,19 @@ body, html {
     height: 100%;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9; /* Light grey background for easier reading */
-    color: #333; /* Dark grey text color for contrast */
+    background-color: #f4f4f9;
+    color: #333;
     display: flex;
-    justify-content: center;
-    align-items: center; /* Centers content vertically and horizontally */
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
     text-align: center;
     width: 100%;
     padding: 20px;
+    background-color: #4CAF50;
+    color: white;
 }
 
 .logo {
@@ -22,44 +24,27 @@ body, html {
 .document-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    width: 100%; /* Use the full width of the viewport */
-    max-width: 1920px; /* Maximum width for large screens */
+    width: 100%;
+    max-width: 1200px;
     padding: 20px;
-    background-color: #f3f3f3; /* Light grey background */
-    overflow-y: auto; /* Allows scrolling */
+    background-color: #ffffff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    margin-top: 30px;
 }
 
-#documentContent {
-    font-size: 24px; /* Large enough for easy reading */
-    white-space: pre-wrap; /* Maintains whitespace formatting from the document */
+#content {
+    font-size: 18px;
+    line-height: 1.6;
     max-width: 100%;
-}
-
-.text-content {
-    width: 80%;
-    max-width: 800px; /* Optimal reading width */
-    margin: auto; /* Centers horizontally */
-    padding: 20px;
-    background-color: #ffffff; /* White background for the content area */
-    font-size: 18px; /* Larger font for easy reading */
-    line-height: 1.6; /* Increase line-height for better readability */
-    border: 1px solid #ccc; /* Light grey border around the content */
-    box-shadow: 0 2px 15px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    transition: font-size 0.3s ease; /* Smooth transition for font-size changes */
-    text-align: center;
+    text-align: justify;
 }
 
 .button-container {
-    position: fixed; /* Fixes the position relative to the viewport */
-    bottom: 20px; /* 20px from the bottom */
-    left: 0;
-    right: 0;
     display: flex;
-    justify-content: center; /* Centers the button horizontally */
+    justify-content: center;
     margin-top: 20px;
-    z-index: 1000; /* Ensures it stays above other content */
 }
 
 button {
@@ -70,22 +55,17 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1920px) {
-    .text-content {
-        font-size: calc(16px + (2 * ((100vw - 320px) / 1600))); /* Dynamically adjust font size */
-    }
-}
-
 @media (max-width: 768px) {
-    .text-content {
-        width: 95%; /* Wider on smaller screens for better use of space */
+    .document-container {
+        margin-top: 20px;
+        border-radius: 0;
     }
 }
