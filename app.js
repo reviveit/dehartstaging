@@ -99,10 +99,10 @@ app.get('/display1', async (req, res) => {
             <h1>Staging 1</h1>
           </div>
           <div class="document-container">
-          <div class="content-wrapper">
+            <div class="content-wrapper">
               <div id="content">${formattedContent}</div>
+            </div>
           </div>
-      </div>
           <div class="button-container">
             <button onclick="navigateToDisplay('/')">Back to Selection</button>
           </div>
