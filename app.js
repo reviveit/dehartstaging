@@ -93,16 +93,27 @@ app.get('/display1', async (req, res) => {
         <link rel="stylesheet" href="/styles.css">
       </head>
       <body>
-        <div class="header">
-          <img src="/logo.png" alt="Logo" class="logo">
-          <h1>Display 1</h1>
+        <div class="page-transition">
+          <div class="header">
+            <img src="/logo.png" alt="Logo" class="logo">
+            <h1>Display 1</h1>
+          </div>
+          <div class="document-container">
+            <div id="content">${formattedContent}</div>
+          </div>
+          <div class="button-container">
+            <button onclick="navigateToDisplay('/')">Back to Selection</button>
+          </div>
         </div>
-        <div class="document-container">
-          <div id="content">${formattedContent}</div>
-        </div>
-        <div class="button-container">
-          <button onclick="location.href='/'">Back to Selection</button>
-        </div>
+        <script>
+          function navigateToDisplay(url) {
+            const pageTransition = document.querySelector('.page-transition');
+            pageTransition.classList.add('fade-out');
+            setTimeout(() => {
+              location.href = url;
+            }, 500);
+          }
+        </script>
       </body>
     </html>
   `);

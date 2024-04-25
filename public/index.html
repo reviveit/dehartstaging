@@ -6,17 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="header">
-      <img src="/logo.png" alt="Logo" class="logo">
-      <h1>Select a Display</h1>
+    <div class="page-transition">
+      <div class="header">
+        <img src="/logo.png" alt="Logo" class="logo">
+        <h1>Select a Display</h1>
+      </div>
+      <div class="button-container">
+        <button onclick="navigateToDisplay('/display1')">Display 1</button>
+        <button onclick="navigateToDisplay('/display2')">Display 2</button>
+        <button onclick="navigateToDisplay('/display3')">Display 3</button>
+        <button onclick="navigateToDisplay('/display4')">Display 4</button>
+        <button onclick="navigateToDisplay('/display5')">Display 5</button>
+        <button onclick="navigateToDisplay('/display6')">Display 6</button>
+      </div>
     </div>
-    <div class="button-container">
-      <button onclick="location.href='/display1'">Display 1</button>
-      <button onclick="location.href='/display2'">Display 2</button>
-      <button onclick="location.href='/display3'">Display 3</button>
-      <button onclick="location.href='/display4'">Display 4</button>
-      <button onclick="location.href='/display5'">Display 5</button>
-      <button onclick="location.href='/display6'">Display 6</button>
-    </div>
+    <script>
+      function navigateToDisplay(url) {
+        const pageTransition = document.querySelector('.page-transition');
+        pageTransition.classList.add('fade-out');
+        setTimeout(() => {
+          location.href = url;
+        }, 500);
+      }
+    </script>
   </body>
 </html>
