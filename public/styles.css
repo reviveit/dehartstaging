@@ -125,11 +125,6 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-    .document-container {
-        margin-top: 20px;
-        border-radius: 0;
-    }
-
     .loading-spinner {
         width: 100px;
         height: 100px;
