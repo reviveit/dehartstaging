@@ -62,7 +62,6 @@ async function getDocumentContent(sharingUrl) {
   }
 }
 
-
 async function convertToHtml(content) {
   const result = await mammoth.convertToHtml({ buffer: content });
   return result.value;
@@ -139,15 +138,17 @@ app.get('/display2', async (req, res) => {
       </head>
       <body>
         <div class="page-transition">
-          <div class="header">
-            <img src="/logo.png" alt="Logo" class="logo">
-            <h1>Staging 2</h1>
-          </div>
-          <div class="document-container">
-            <div id="content">${formattedContent}</div>
-          </div>
-          <div class="button-container">
-            <button onclick="navigateToDisplay('/')">Back to Selection</button>
+          <div class="page-container">
+            <div class="header">
+              <img src="/logo.png" alt="Logo" class="logo">
+              <h1>Staging 1</h1>
+            </div>
+            <div class="document-container">
+              <div id="content">${formattedContent}</div>
+            </div>
+            <div class="button-container">
+              <button onclick="navigateToDisplay('/')">Back to Selection</button>
+            </div>
           </div>
         </div>
         <div class="loading-spinner"></div>
@@ -182,15 +183,17 @@ app.get('/display3', async (req, res) => {
       </head>
       <body>
         <div class="page-transition">
-          <div class="header">
-            <img src="/logo.png" alt="Logo" class="logo">
-            <h1>Staging 3</h1>
-          </div>
-          <div class="document-container">
-            <div id="content">${formattedContent}</div>
-          </div>
-          <div class="button-container">
-            <button onclick="navigateToDisplay('/')">Back to Selection</button>
+          <div class="page-container">
+            <div class="header">
+              <img src="/logo.png" alt="Logo" class="logo">
+              <h1>Staging 1</h1>
+            </div>
+            <div class="document-container">
+              <div id="content">${formattedContent}</div>
+            </div>
+            <div class="button-container">
+              <button onclick="navigateToDisplay('/')">Back to Selection</button>
+            </div>
           </div>
         </div>
         <div class="loading-spinner"></div>
@@ -225,15 +228,17 @@ app.get('/display4', async (req, res) => {
       </head>
       <body>
         <div class="page-transition">
-          <div class="header">
-            <img src="/logo.png" alt="Logo" class="logo">
-            <h1>Staging 4</h1>
-          </div>
-          <div class="document-container">
-            <div id="content">${formattedContent}</div>
-          </div>
-          <div class="button-container">
-            <button onclick="navigateToDisplay('/')">Back to Selection</button>
+          <div class="page-container">
+            <div class="header">
+              <img src="/logo.png" alt="Logo" class="logo">
+              <h1>Staging 1</h1>
+            </div>
+            <div class="document-container">
+              <div id="content">${formattedContent}</div>
+            </div>
+            <div class="button-container">
+              <button onclick="navigateToDisplay('/')">Back to Selection</button>
+            </div>
           </div>
         </div>
         <div class="loading-spinner"></div>
@@ -268,15 +273,17 @@ app.get('/display5', async (req, res) => {
       </head>
       <body>
         <div class="page-transition">
-          <div class="header">
-            <img src="/logo.png" alt="Logo" class="logo">
-            <h1>Staging 5</h1>
-          </div>
-          <div class="document-container">
-            <div id="content">${formattedContent}</div>
-          </div>
-          <div class="button-container">
-            <button onclick="navigateToDisplay('/')">Back to Selection</button>
+          <div class="page-container">
+            <div class="header">
+              <img src="/logo.png" alt="Logo" class="logo">
+              <h1>Staging 1</h1>
+            </div>
+            <div class="document-container">
+              <div id="content">${formattedContent}</div>
+            </div>
+            <div class="button-container">
+              <button onclick="navigateToDisplay('/')">Back to Selection</button>
+            </div>
           </div>
         </div>
         <div class="loading-spinner"></div>
@@ -311,15 +318,17 @@ app.get('/display6', async (req, res) => {
       </head>
       <body>
         <div class="page-transition">
-          <div class="header">
-            <img src="/logo.png" alt="Logo" class="logo">
-            <h1>Staging 6</h1>
-          </div>
-          <div class="document-container">
-            <div id="content">${formattedContent}</div>
-          </div>
-          <div class="button-container">
-            <button onclick="navigateToDisplay('/')">Back to Selection</button>
+          <div class="page-container">
+            <div class="header">
+              <img src="/logo.png" alt="Logo" class="logo">
+              <h1>Staging 1</h1>
+            </div>
+            <div class="document-container">
+              <div id="content">${formattedContent}</div>
+            </div>
+            <div class="button-container">
+              <button onclick="navigateToDisplay('/')">Back to Selection</button>
+            </div>
           </div>
         </div>
         <div class="loading-spinner"></div>
