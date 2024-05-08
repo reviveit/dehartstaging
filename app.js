@@ -164,6 +164,9 @@ app.get('/display2', async (req, res) => {
               location.href = url;
             }, 500);
           }
+          setInterval(() => {
+            location.reload();
+          }, 1 * 60 * 1000);
         </script>
       </body>
     </html>
@@ -208,6 +211,9 @@ app.get('/display3', async (req, res) => {
               location.href = url;
             }, 500);
           }
+          setInterval(() => {
+            location.reload();
+          }, 1 * 60 * 1000);
         </script>
       </body>
     </html>
@@ -252,6 +258,9 @@ app.get('/display4', async (req, res) => {
               location.href = url;
             }, 500);
           }
+          setInterval(() => {
+            location.reload();
+          }, 1 * 60 * 1000);
         </script>
       </body>
     </html>
@@ -296,6 +305,9 @@ app.get('/display5', async (req, res) => {
               location.href = url;
             }, 500);
           }
+          setInterval(() => {
+            location.reload();
+          }, 1 * 60 * 1000);
         </script>
       </body>
     </html>
@@ -340,6 +352,9 @@ app.get('/display6', async (req, res) => {
               location.href = url;
             }, 500);
           }
+          setInterval(() => {
+            location.reload();
+          }, 1 * 60 * 1000);
         </script>
       </body>
     </html>
