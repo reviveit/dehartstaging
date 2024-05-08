@@ -116,6 +116,10 @@ app.get('/display1', async (req, res) => {
               location.href = url;
             }, 500);
           }
+          
+          setInterval(() => {
+            location.reload();
+          }, 1 * 60 * 1000);
         </script>
       </body>
     </html>
