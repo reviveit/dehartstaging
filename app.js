@@ -95,7 +95,7 @@ app.get('/display1', async (req, res) => {
         <div class="page-transition">
           <div class="page-container">
             <div class="header">
-              <img src="/logo.png" alt="Logo" class="logo">
+              <img src="/logo1.png" alt="Logo" class="logo">
             </div>
             <div class="document-container">
               <div id="content">${formattedContent}</div>
@@ -143,7 +143,7 @@ app.get('/display2', async (req, res) => {
         <div class="page-transition">
           <div class="page-container">
             <div class="header">
-              <img src="/logo.png" alt="Logo" class="logo">
+              <img src="/logo1.png" alt="Logo" class="logo">
             </div>
             <div class="document-container">
               <div id="content">${formattedContent}</div>
@@ -190,7 +190,7 @@ app.get('/display3', async (req, res) => {
         <div class="page-transition">
           <div class="page-container">
             <div class="header">
-              <img src="/logo.png" alt="Logo" class="logo">
+              <img src="/logo1.png" alt="Logo" class="logo">
             </div>
             <div class="document-container">
               <div id="content">${formattedContent}</div>
@@ -237,7 +237,7 @@ app.get('/display4', async (req, res) => {
         <div class="page-transition">
           <div class="page-container">
             <div class="header">
-              <img src="/logo.png" alt="Logo" class="logo">
+              <img src="/logo1.png" alt="Logo" class="logo">
             </div>
             <div class="document-container">
               <div id="content">${formattedContent}</div>
@@ -284,7 +284,7 @@ app.get('/display5', async (req, res) => {
         <div class="page-transition">
           <div class="page-container">
             <div class="header">
-              <img src="/logo.png" alt="Logo" class="logo">
+              <img src="/logo1.png" alt="Logo" class="logo">
             </div>
             <div class="document-container">
               <div id="content">${formattedContent}</div>
@@ -331,7 +331,7 @@ app.get('/display6', async (req, res) => {
         <div class="page-transition">
           <div class="page-container">
             <div class="header">
-              <img src="/logo.png" alt="Logo" class="logo">
+              <img src="/logo1.png" alt="Logo" class="logo">
             </div>
             <div class="document-container">
               <div id="content">${formattedContent}</div>
